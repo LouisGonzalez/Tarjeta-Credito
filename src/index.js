@@ -1,5 +1,6 @@
 //todas las librarias y paquetes que se requieren
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 const puerto = process.env.PORT || 5432
@@ -8,6 +9,15 @@ const cors = require("cors")
 
 const app = express();
 require('./Db');
+
+
+
+app.use(express.static(__dirname+'/front-end/dist/front-end'));
+app.get('/',function(req,res){
+    res.sendFile(path.join(__dirname+'/front-end/dist/front-end/index.html'));
+});
+
+
 
 const corsOptions = {origin: "https://tarjeta-credito-seminario.herokuapp.com/"}
 app.use(cors({
