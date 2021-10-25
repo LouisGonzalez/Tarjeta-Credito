@@ -8,6 +8,9 @@
     "nodemailer-express-handlebars": "^4.0.0",
     "pg": "^8.7.1",
     "sequelize": "^6.8.0",
+=======
+    "postgres": "^1.0.2",
+    "sequelize": "^6.7.0",
     "sequelize-auto": "^0.8.5"
   },
   "scripts": {
