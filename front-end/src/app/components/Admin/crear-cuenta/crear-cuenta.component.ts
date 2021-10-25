@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../models/usuario.model'
 import { TipoCuenta } from '../../../models/tipo_cuenta.model'
 import { Tarjeta, CrearTarjeta } from '../../../models/tarjeta.model'
+import { Router } from '@angular/router';
 
 import { TipoService } from '../../../services/tipo/tipo.service'
 import { UsuarioService } from '../../../services/usuario/usuario.service'
@@ -26,6 +27,7 @@ export class CrearCuentaComponent implements OnInit {
     private _tipoService: TipoService,
     private _usuarioService: UsuarioService,
     private _tarjetaService: TarjetaService,
+    private _router: Router,
   ) {
     this.usuarioEncontrado = new Usuario()
     this.tipo = new TipoCuenta()
@@ -50,20 +52,54 @@ export class CrearCuentaComponent implements OnInit {
     })
   }
 
-  crearTarjeta() {
-    this.nuevaTarjeta = {
-      numero_tarjeta: '1111111111',
-      cvv: '123',
-      fecha_vencimiento: '2025-10-23',
-      notifyme: this.notifyme,
-      limite: this.limite,
-      saldo: 0,
-      usuario_id: this.usuarioEncontrado.usuario_id,
-      tipo_cuenta_id: this.tipo.tipo_cuenta_id,
+  convertir(numero: number, digitos: number) {
+    let Old = numero.toString()
+    let New = ''
+    for (let x = 0; x < digitos - Old.length; x++) {
+      New = New + '0'
     }
-    this._tarjetaService.crearTarjeta(this.nuevaTarjeta).subscribe(response => {
-      console.log(response)
+    New = New + Old
+    return New
+  }
+
+  crearTarjeta() {
+    this._tarjetaService.generarDatos().subscribe(response => {
+      let cvv = response.datos.cvv
+      let noTarjetaNumber = Number(response.datos.numero_tarjeta) + 1
+      /*let noCuentaNew = ''
+      for (let x = 0; x < 4 - noCuentaOld.length; x++) {
+        noCuentaNew = noCuentaNew + '0'
+      }
+      noCuentaNew = noCuentaNew + noCuentaOld*/
+      let noCuenta = this.convertir(noTarjetaNumber, 4)
+      let id = this.convertir(this.usuarioEncontrado.usuario_id, 2)
+
+      let noTarjeta = this.tipo.tipo_cuenta_id.toString() + noCuenta + id + '89' + Math.trunc(Math.random() * (9 - 0) + 0)
+      console.log(noTarjeta)
+
+      let fecha = new Date
+      fecha.setFullYear(fecha.getFullYear() + 5)
+
+      this.nuevaTarjeta = {
+        numero_tarjeta: noTarjeta,
+        cvv: cvv,
+        fecha_vencimiento: fecha,
+        notifyme: this.notifyme,
+        limite: this.limite,
+        saldo: 0,
+        usuario_id: this.usuarioEncontrado.usuario_id,
+        tipo_cuenta_id: this.tipo.tipo_cuenta_id,
+      }
+      console.log(this.nuevaTarjeta)
+      this._tarjetaService.crearTarjeta(this.nuevaTarjeta).subscribe(response => {
+        console.log(response)
+        this._router.navigate(['/']);
+      })
     })
+
+    /*this._tarjetaService.crearTarjeta(this.nuevaTarjeta).subscribe(response => {
+      console.log(response)
+    })*/
   }
 
   ngOnInit(): void {

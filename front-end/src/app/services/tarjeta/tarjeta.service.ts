@@ -21,6 +21,11 @@ export class TarjetaService {
     let a = this._http.get(this.url + `tarjeta`);
     return a;
   }
+  generarDatos(): Observable<any> {
+    let a = this._http.get(this.url + "tarjeta/generar-datos")
+    return a;
+  }
+
   crearTarjeta(_tarjeta: CrearTarjeta): Observable<any> {
     let a = this._http.post(this.url + "tarjeta", _tarjeta)
     return a;

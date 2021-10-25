@@ -10,6 +10,7 @@ export class Tarjeta {
     fecha_vencimiento: string;
     notifyme: boolean;
     saldo: number;
+    limite: number;
     Usuario: Usuario;
     Tipo_cuentum: TipoCuenta;
     Deshabilitacions: Deshabilitacion[];
@@ -19,7 +20,7 @@ export class Tarjeta {
 export class CrearTarjeta {
     numero_tarjeta: string;
     cvv: string;
-    fecha_vencimiento: string;
+    fecha_vencimiento: Date;
     notifyme: boolean;
     limite: number;
     saldo: number;

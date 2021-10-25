@@ -19,7 +19,7 @@ Eliminacion.belongsTo(Tarjeta, { foreignKey: 'tarjeta_id' })
 const listar = async (req, res) => {
     try {
         const tarjeta = await Tarjeta.findAll({
-            attributes: ['tarjeta_id', 'numero_tarjeta', 'cvv', 'fecha_vencimiento', 'notifyme', 'saldo'],
+            attributes: ['tarjeta_id', 'numero_tarjeta', 'cvv', 'fecha_vencimiento', 'notifyme', 'saldo', 'limite'],
             include: [
                 Usuario,
                 {
@@ -117,12 +117,13 @@ const generarDatos = async (req, res) => {
             order: [['tarjeta_id', 'desc']]
         });
         let cvv = Math.random() * (999 - 100) + 100
+        cvv = Math.trunc(cvv)
         let datos = {
-            numero_tarjeta: tarjeta.numero_tarjeta,
+            numero_tarjeta: tarjeta.numero_tarjeta[1] + tarjeta.numero_tarjeta[2] + tarjeta.numero_tarjeta[3] + tarjeta.numero_tarjeta[4],
             cvv: cvv
         }
-        console.log(datos)
-        return res.status(200).json({ tarjeta });
+        //console.log(datos)
+        return res.status(200).json({ datos });
     } catch (error) {
         //si nuestra consulta falla tira un mensaje de error
         return res.status(500).send(error.message);

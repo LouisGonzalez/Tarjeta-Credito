@@ -3,7 +3,8 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
-                <button type="button" class="btn btn-outline-success">Crear cuenta</button>
+                <button type="button" class="btn btn-outline-success" [routerLink]="['/crear-cuenta']">Crear
+                    cuenta</button>
             </div>
         </div>
     </div>
@@ -14,6 +15,7 @@
             <tr>
                 <th scope="col">Tarjeta</th>
                 <th scope="col">Saldo</th>
+                <th scope="col">Limite</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Opciones</th>
             </tr>
@@ -23,7 +25,8 @@
                 <th scope="row">
                     {{tarjetas.Usuario.username+'.'+tarjetas.Tipo_cuentum.nombre+'@'+tarjetas.numero_tarjeta+'.com'}}
                 </th>
-                <td>{{tarjetas.saldo | currency:"Q."}}</td>
+                <td>{{tarjetas.saldo | currency:tarjetas.Tipo_cuentum.Moneda.simbolo+"."}}</td>
+                <td>{{tarjetas.limite | currency:tarjetas.Tipo_cuentum.Moneda.simbolo+"."}}</td>
                 <td *ngIf="tarjetas.Deshabilitacions.length==0 && tarjetas.Eliminacions.length==0"
                     style="color: greenyellow;">Activa</td>
                 <td *ngIf="tarjetas.Deshabilitacions.length!=0" style="color: rgba(255, 166, 0, 0.938);">Deshabilitada
