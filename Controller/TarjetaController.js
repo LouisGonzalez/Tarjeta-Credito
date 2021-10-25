@@ -58,15 +58,10 @@ const buscar = async (req, res) => {
 
 const guardar = async (req, res) => {
     try {
-        //pide los datos del body del req, va actualizar todos los parametros necesarios
-        //necesitan hacer comprobaciones sobre si existe o no en el body. 
-        if (req.body.nombreTarjeta === "") {
-            return res.status(500).json({ error: "no puede aceptar campos vacios" });
-        } else {
-            //si la consulta viene bien con todo lo necesario se crea el nuevo elemento en la tabla
-            const tarjeta = await Tarjeta.create(req.body);
-            return res.status(200).json({ tarjeta });
-        }
+        console.log(req.body)
+        const tarjeta = await Tarjeta.create(req.body);
+        return res.status(200).json({ tarjeta })
+
     } catch (error) {
         //si hubo error se nos despliega un mensaje
         return res.status(500).send(error.message);
@@ -113,11 +108,33 @@ const eliminar = async (req, res) => {
         return res.status(500).send(error.message);
     }
 }
+const generarDatos = async (req, res) => {
+    try {
+        console.log('generando...')
+        const tarjeta = await Tarjeta.findOne({
+            attributes: ['numero_tarjeta'],
+            limit: 1,
+            order: [['tarjeta_id', 'desc']]
+        });
+        let cvv = Math.random() * (999 - 100) + 100
+        let datos = {
+            numero_tarjeta: tarjeta.numero_tarjeta,
+            cvv: cvv
+        }
+        console.log(datos)
+        return res.status(200).json({ tarjeta });
+    } catch (error) {
+        //si nuestra consulta falla tira un mensaje de error
+        return res.status(500).send(error.message);
+    }
+};
+
 // es necesario exportar todas las funciones
 module.exports = {
     listar,
     guardar,
     actualizar,
     eliminar,
-    buscar
+    buscar,
+    generarDatos,
 }

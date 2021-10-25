@@ -22,6 +22,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'Tarjeta',
         key: 'tarjeta_id'
       }
+    },
+    fecha: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
     }
   }, {
     sequelize,

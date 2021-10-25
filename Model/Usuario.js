@@ -7,13 +7,24 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
+    dpi: {
+      type: DataTypes.CHAR(50),
+      allowNull: false,
+      unique: "dpi"
+    },
+    nombre: {
+      type: DataTypes.CHAR(100),
+      allowNull: false
+    },
     username: {
       type: DataTypes.CHAR(50),
-      allowNull: false
+      allowNull: false,
+      unique: "username"
     },
     correo: {
       type: DataTypes.CHAR(50),
-      allowNull: false
+      allowNull: false,
+      unique: "correo"
     },
     password: {
       type: DataTypes.CHAR(50),
@@ -42,6 +53,30 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "usuario_id" },
+        ]
+      },
+      {
+        name: "username",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "username" },
+        ]
+      },
+      {
+        name: "dpi",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "dpi" },
+        ]
+      },
+      {
+        name: "correo",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "correo" },
         ]
       },
     ]

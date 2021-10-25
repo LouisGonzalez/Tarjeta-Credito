@@ -1,10 +1,13 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
-var { Tipo_cuenta} = require('../db');
+var { Tipo_cuenta, Moneda } = require('../db');
+
+Moneda.hasMany(Tipo_cuenta, { foreignKey: 'moneda_id' })
+Tipo_cuenta.belongsTo(Moneda, { foreignKey: 'moneda_id' })
 
 const listar = async (req, res) => {
     try {
-        const tipo_cuenta = await Tipo_cuenta.findAll();
+        const tipo_cuenta = await Tipo_cuenta.findAll({ include: [Moneda] });
         return res.status(200).json({ tipo_cuenta });
     } catch (error) {
         //si nuestra consulta falla tira un mensaje de error
@@ -49,24 +52,24 @@ const guardar = async (req, res) => {
 }
 
 const actualizar = async (req, res) => {
-    try { 
+    try {
         //el primer if, pide que exista dentro del body el nombre de la columna.
         if (req.body.nombreTipo_cuenta) {
             //este segundo if le indica que no tiene que venir vacío.
             if (req.body.nombreTipo_cuenta === "") {
                 return res.status(500).json({ error: "El campo es obligatorio y no puede ir vacío" });
-            }else{
+            } else {
                 //si cumple todas las condiciones entonces realiza la actualización.
                 await Tipo_cuenta.update(req.body, {
                     where: { tipo_cuenta_id: req.params.tipo_cuentaId }
                 })
                 //manda el mensaje de exito.
-                return res.status(200).json({ success: "Se ha modificado" });   
+                return res.status(200).json({ success: "Se ha modificado" });
             }
         }
         //si algo sale mal lo muestra.
         return res.status(500).json({ error: "faltan campos" });
-        
+
     } catch (error) {
         return res.status(500).send(error.message);
     }

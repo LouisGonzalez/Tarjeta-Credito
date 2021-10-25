@@ -1,0 +1,109 @@
+<div class="container">
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="car-header">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h2>Creando cuenta</h2>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group row">
+
+                        <form class="was-validated">
+                            <div class="col-md-12">
+                                <div class="input-group mb-3">
+                                    <input [(ngModel)]="dpi" id="dpi" type="text" class="form-control"
+                                        placeholder="Ingrese el DPI del cliente" aria-label="Ingrese el DPI del cliente"
+                                        aria-describedby="button-addon2" pattern="[0-9]*" maxlength="13" required
+                                        autofocus [ngModelOptions]="{standalone: true}">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                                        (click)="buscarUsuario()">Buscar</button>
+                                    <div id="dpi" class="invalid-feedback">
+                                        Ingrese
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>DPI: {{usuarioEncontrado.dpi}}</label>
+                                </div>
+                                <div class="col-6">
+                                    <label>Nombre: {{usuarioEncontrado.nombre}}</label>
+                                </div>
+                                <div class="col-6">
+                                    <label>Usuario: {{usuarioEncontrado.username}}</label>
+                                </div>
+                                <div class="col-6">
+                                    <label>Correo: {{usuarioEncontrado.correo}}</label>
+                                </div>
+                            </div>
+                            <hr class="solid">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label id="selectTipo" class=" col-form-label">Seleccione el tipo de cuenta</label>
+                                    <select id="selectTipo" class="form-select" required aria-label="select example">
+                                        <option value=""></option>
+                                        <option *ngFor="let selectTipo of selectTipo"
+                                            value="{{selectTipo.tipo_cuenta_id}}"
+                                            (click)="onChangeTipo(selectTipo.nombre)">
+                                            {{selectTipo.nombre}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">Seleccione el tipo de cuenta</div>
+                                </div>
+                                <div class=" col-6">
+                                    <label id="limite" class=" col-form-label">Limite de credito</label>
+
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <label *ngIf="tipo.Moneda">{{tipo.Moneda.simbolo}}</label>
+                                        </span>
+                                        <input [(ngModel)]='limite' type="text" class="form-control " id="limite"
+                                            [ngModelOptions]="{standalone: true}" required>
+                                        <div id="userName" class="invalid-feedback">
+                                            Ingrese
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </form>
+                        <div class='row'>
+                            <div class="col-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-check col-auto">
+                                <input type="checkbox" class="form-check-input" id="validationFormCheck1" required
+                                    [(ngModel)]="notifyme">
+                                <label class="form-check-label" for="validationFormCheck1">Notifyme</label>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class="col-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-check col-auto">
+                                <button type="button" class="btn btn-outline-success" (click)="crearTarjeta()">Crear
+                                    cuenta</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

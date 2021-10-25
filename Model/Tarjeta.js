@@ -24,6 +24,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
+    limite: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
     saldo: {
       type: DataTypes.FLOAT,
       allowNull: false

@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http
 import { Observable, throwError } from "rxjs";
 import { GLOBAL } from "../global";
 
-import { Tarjeta, CrearTarjeta } from '../../models/tarjeta.model'
+import { TipoCuenta } from "../../models/tipo_cuenta.model"
 
 @Injectable({
   providedIn: 'root'
 })
-export class TarjetaService {
+export class TipoService {
   public url: string
 
   constructor(
@@ -17,12 +17,8 @@ export class TarjetaService {
     this.url = GLOBAL.url
   }
 
-  listarTarjetas(): Observable<any> {
-    let a = this._http.get(this.url + `tarjeta`);
-    return a;
-  }
-  crearTarjeta(_tarjeta: CrearTarjeta): Observable<any> {
-    let a = this._http.post(this.url + "tarjeta", _tarjeta)
+  listarTipos(): Observable<any> {
+    let a = this._http.get(this.url + `tipo_cuenta`)
     return a;
   }
 }

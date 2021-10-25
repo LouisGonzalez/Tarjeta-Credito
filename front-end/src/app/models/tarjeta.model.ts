@@ -15,3 +15,14 @@ export class Tarjeta {
     Deshabilitacions: Deshabilitacion[];
     Eliminacions: Eliminacion[];
 }
+
+export class CrearTarjeta {
+    numero_tarjeta: string;
+    cvv: string;
+    fecha_vencimiento: string;
+    notifyme: boolean;
+    limite: number;
+    saldo: number;
+    usuario_id: number;
+    tipo_cuenta_id: number;
+}

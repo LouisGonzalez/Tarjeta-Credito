@@ -1,6 +1,6 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
-var { Usuario} = require('../db');
+var { Usuario } = require('../db');
 
 const listar = async (req, res) => {
     try {
@@ -12,10 +12,13 @@ const listar = async (req, res) => {
     }
 };
 
-const buscar = async (req, res) => {
+const buscarDPI = async (req, res) => {
     try {
         //findByPk busca un elemento por la llave primaria de la tabla
-        const usuario = await Usuario.findByPk(req.params.usuarioId);
+        const usuario = await Usuario.findOne(
+            {
+                where: { dpi: req.params.dpi }
+            });
         //si devuelve null, es porque no existe ese elemento
         if (usuario === null) {
             return res.status(500).json({ error: "No se ha encontrado" });
@@ -29,6 +32,8 @@ const buscar = async (req, res) => {
         return res.status(500).send(error.message);
     }
 };
+
+
 
 
 const guardar = async (req, res) => {
@@ -49,24 +54,24 @@ const guardar = async (req, res) => {
 }
 
 const actualizar = async (req, res) => {
-    try { 
+    try {
         //el primer if, pide que exista dentro del body el nombre de la columna.
         if (req.body.nombreUsuario) {
             //este segundo if le indica que no tiene que venir vacío.
             if (req.body.nombreUsuario === "") {
                 return res.status(500).json({ error: "El campo es obligatorio y no puede ir vacío" });
-            }else{
+            } else {
                 //si cumple todas las condiciones entonces realiza la actualización.
                 await Usuario.update(req.body, {
                     where: { usuario_id: req.params.usuarioId }
                 })
                 //manda el mensaje de exito.
-                return res.status(200).json({ success: "Se ha modificado" });   
+                return res.status(200).json({ success: "Se ha modificado" });
             }
         }
         //si algo sale mal lo muestra.
         return res.status(500).json({ error: "faltan campos" });
-        
+
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -94,5 +99,5 @@ module.exports = {
     guardar,
     actualizar,
     eliminar,
-    buscar
+    buscarDPI
 }
