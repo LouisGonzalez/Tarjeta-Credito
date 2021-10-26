@@ -9,8 +9,8 @@ import { Reporte2Component } from './components/Admin/Reportes/reporte2/reporte2
 import { Reporte3Component } from './components/Admin/Reportes/reporte3/reporte3.component'
 import { Reporte4Component } from './components/Admin/Reportes/reporte4/reporte4.component'
 import { Reporte5Component } from './components/Admin/Reportes/reporte5/reporte5.component'
-
-
+import { CrudMonedaComponent } from './components/Admin/crud-moneda/crud-moneda.component'
+import { CrudTipoComponent } from './components/Admin/crud-tipo/crud-tipo.component'
 
 const routes: Routes = [
   //rutas para admin
@@ -20,7 +20,9 @@ const routes: Routes = [
   { path: 'reporte2', component: Reporte2Component },
   { path: 'reporte3', component: Reporte3Component },
   { path: 'reporte4', component: Reporte4Component },
-  { path: 'reporte5', component: Reporte5Component }
+  { path: 'reporte5', component: Reporte5Component },
+  { path: 'tipo-cuenta', component: CrudTipoComponent },
+  { path: 'moneda', component: CrudMonedaComponent },
 ];
 
 @NgModule({

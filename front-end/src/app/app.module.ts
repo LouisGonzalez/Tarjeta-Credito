@@ -15,6 +15,8 @@ import { Reporte3Component } from './components/Admin/Reportes/reporte3/reporte3
 import { Reporte4Component } from './components/Admin/Reportes/reporte4/reporte4.component';
 import { Reporte5Component } from './components/Admin/Reportes/reporte5/reporte5.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CrudMonedaComponent } from './components/Admin/crud-moneda/crud-moneda.component';
+import { CrudTipoComponent } from './components/Admin/crud-tipo/crud-tipo.component';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     Reporte4Component,
     Reporte5Component,
     FormatDate,
+    CrudMonedaComponent,
+    CrudTipoComponent,
   ],
   imports: [
     BrowserModule,

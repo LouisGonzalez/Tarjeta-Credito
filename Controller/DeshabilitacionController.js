@@ -1,6 +1,6 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
-var { Deshabilitacion} = require('../db');
+var { Deshabilitacion } = require('../db');
 
 const listar = async (req, res) => {
     try {
@@ -34,14 +34,11 @@ const buscar = async (req, res) => {
 const guardar = async (req, res) => {
     try {
         //pide los datos del body del req, va actualizar todos los parametros necesarios
-        //necesitan hacer comprobaciones sobre si existe o no en el body. 
-        if (req.body.nombreDeshabilitacion === "") {
-            return res.status(500).json({ error: "no puede aceptar campos vacios" });
-        } else {
-            //si la consulta viene bien con todo lo necesario se crea el nuevo elemento en la tabla
-            const deshabilitacion = await Deshabilitacion.create(req.body);
-            return res.status(200).json({ deshabilitacion });
-        }
+        //necesitan hacer comprobaciones sobre si existe o no en el body.
+        //si la consulta viene bien con todo lo necesario se crea el nuevo elemento en la tabla
+        const deshabilitacion = await Deshabilitacion.create(req.body);
+        return res.status(200).json({ deshabilitacion });
+
     } catch (error) {
         //si hubo error se nos despliega un mensaje
         return res.status(500).send(error.message);
@@ -49,24 +46,24 @@ const guardar = async (req, res) => {
 }
 
 const actualizar = async (req, res) => {
-    try { 
+    try {
         //el primer if, pide que exista dentro del body el nombre de la columna.
         if (req.body.nombreDeshabilitacion) {
             //este segundo if le indica que no tiene que venir vacío.
             if (req.body.nombreDeshabilitacion === "") {
                 return res.status(500).json({ error: "El campo es obligatorio y no puede ir vacío" });
-            }else{
+            } else {
                 //si cumple todas las condiciones entonces realiza la actualización.
                 await Deshabilitacion.update(req.body, {
                     where: { deshabilitacion_id: req.params.deshabilitacionId }
                 })
                 //manda el mensaje de exito.
-                return res.status(200).json({ success: "Se ha modificado" });   
+                return res.status(200).json({ success: "Se ha modificado" });
             }
         }
         //si algo sale mal lo muestra.
         return res.status(500).json({ error: "faltan campos" });
-        
+
     } catch (error) {
         return res.status(500).send(error.message);
     }
@@ -75,7 +72,7 @@ const actualizar = async (req, res) => {
 const eliminar = async (req, res) => {
     try {
         await Deshabilitacion.destroy({
-            where: { deshabilitacion_id: req.params.deshabilitacionId }
+            where: { tarjeta_id: req.params.deshabilitacionId }
         }).then(x => {
             //la promeso devulve 1 si la consulta se realiza con exito
             if (x === 1) {

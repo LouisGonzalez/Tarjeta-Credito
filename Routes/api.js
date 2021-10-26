@@ -27,5 +27,9 @@ var apiDeshabilitacionRouter = require('./api/DeshabilitacionRouter');
 //si una ruta viene con /deshabilitacion el encargado de la ruta será apiDeshabilitacionRouter, y se concatena a router
 router.use('/deshabilitacion', apiDeshabilitacionRouter);
 
+var apiEliminacionRouter = require('./api/EliminacionRouter');
+//si una ruta viene con /eliminacion el encargado de la ruta será apiEliminacionRouter, y se concatena a router
+router.use('/eliminacion', apiEliminacionRouter);
+
 
 module.exports = router;
