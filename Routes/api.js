@@ -23,5 +23,9 @@ var apiComentarioRouter = require('./api/ComentarioRouter');
 //si una ruta viene con /comentario el encargado de la ruta será apiComentarioRouter, y se concatena a router
 router.use('/comentario', apiComentarioRouter);
 
+var apiDeshabilitacionRouter = require('./api/DeshabilitacionRouter');
+//si una ruta viene con /deshabilitacion el encargado de la ruta será apiDeshabilitacionRouter, y se concatena a router
+router.use('/deshabilitacion', apiDeshabilitacionRouter);
+
 
 module.exports = router;

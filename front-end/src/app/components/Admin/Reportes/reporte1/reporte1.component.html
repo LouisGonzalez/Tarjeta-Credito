@@ -1,0 +1,63 @@
+<div class="container">
+    <br>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+                            #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"> <span
+                                    class="material-icons">
+                                    calendar_today
+                                </span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-outline-primary" (click)="listarMovimientos()">Listar
+                movimientos</button>
+        </div>
+
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Tarjeta</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let mov of movimientos">
+                    <td scope="row">
+                        {{mov.Tarjetum.numero_tarjeta}}
+                    </td>
+                    <td scope="row" *ngIf="mov.es_Aumento" style="color: greenyellow;">
+                        {{mov.monto| currency:mov.Tarjetum.Tipo_cuentum.Moneda.simbolo+"."}}
+                    </td>
+                    <td scope="row" *ngIf="!mov.es_Aumento" style="color: red;">
+                        {{mov.monto| currency:mov.Tarjetum.Tipo_cuentum.Moneda.simbolo+"."}}
+                    </td>
+                    <td scope="row" *ngIf="mov.es_Aumento" style="color: greenyellow;">
+                        Aumento
+                    </td>
+                    <td scope="row" *ngIf="!mov.es_Aumento" style="color: red;">
+                        Reduccion
+                    </td>
+                    <td scope="row">
+                        {{mov.fecha|formatDate}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

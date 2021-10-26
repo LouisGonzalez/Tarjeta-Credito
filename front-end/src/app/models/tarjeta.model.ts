@@ -15,6 +15,14 @@ export class Tarjeta {
     Tipo_cuentum: TipoCuenta;
     Deshabilitacions: Deshabilitacion[];
     Eliminacions: Eliminacion[];
+    Transaccions: Transaccions[]
+}
+
+export class Transaccions {
+    transaccion_id: number;
+    monto: number;
+    fecha: string;
+    es_Aumento: Boolean;
 }
 
 export class CrearTarjeta {
@@ -26,4 +34,9 @@ export class CrearTarjeta {
     saldo: number;
     usuario_id: number;
     tipo_cuenta_id: number;
+}
+export class T {
+    numero_tarjeta: '';
+    motivo: '';
+    fecha: null;
 }

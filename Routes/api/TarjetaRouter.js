@@ -5,6 +5,10 @@ const router = require('express').Router();
 var TarjetaController = require('../../controller/TarjetaController');
 
 router.get('/generar-datos', TarjetaController.generarDatos);
+router.get('/ultimos-movimientos/:fecha', TarjetaController.ultimosMovimientos);
+router.get('/bloqueadas', TarjetaController.tarjetasBloqueadas);
+router.get('/total', TarjetaController.totalTarjetas);
+router.get('/cierre', TarjetaController.cierre);
 //este es nuestro listado de rutas para los metodos
 router.get('/', TarjetaController.listar);
 //si recibe id, como en buscar se tiene que especificar

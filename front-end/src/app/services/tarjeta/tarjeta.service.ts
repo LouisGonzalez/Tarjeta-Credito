@@ -30,4 +30,26 @@ export class TarjetaService {
     let a = this._http.post(this.url + "tarjeta", _tarjeta)
     return a;
   }
+  //reportes
+  movimientos(fecha: string): Observable<any> {
+    let a = this._http.get(this.url + "tarjeta/ultimos-movimientos/" + fecha)
+    return a;
+  }
+  bloqueadas(): Observable<any> {
+    let a = this._http.get(this.url + "tarjeta/bloqueadas")
+    return a;
+  }
+  total(): Observable<any> {
+    let a = this._http.get(this.url + "tarjeta/total")
+    return a;
+  }
+  cierre(): Observable<any> {
+    let a = this._http.get(this.url + "tarjeta/cierre")
+    return a;
+  }
+
+  buscar(numero: string): Observable<any> {
+    let a = this._http.get(this.url + "tarjeta/" + numero)
+    return a;
+  }
 }

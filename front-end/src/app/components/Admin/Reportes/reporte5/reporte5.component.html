@@ -1,0 +1,143 @@
+<div class="container">
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h2>Cierre de cuentas</h2>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card body">
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h3>Cuentas normales</h3>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Cantidad(Q)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="color: greenyellow;">
+                                        <td scope="row">
+                                            Aumentos
+                                        </td>
+                                        <td scope="row">
+                                            {{normal.aumentoQ|currency:"Q."}}
+                                        </td>
+
+
+                                    </tr>
+                                    <tr style="color: red;">
+                                        <td scope="row">
+                                            Reducciones
+                                        </td>
+
+
+                                        <td scope="row">
+                                            {{normal.reduccionQ|currency:"Q."}}
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            Total
+                                        </th>
+                                        <th scope="row">
+                                            {{normal.aumentoQ-normal.reduccionQ |currency:"Q."}}
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h3>Cuentas gold</h3>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Cantidad($)</th>
+                                        <th scope="col">Cantidad(Q)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="color: greenyellow;">
+                                        <td scope="row">
+                                            Aumentos
+                                        </td>
+                                        <td scope="row">
+                                            {{gold.aumento|currency:"$."}}
+                                        </td>
+                                        <td scope="row">
+                                            {{gold.aumento*gold.cambio |currency:"Q."}}
+                                        </td>
+
+
+                                    </tr>
+                                    <tr style="color: red;">
+                                        <td scope="row">
+                                            Reducciones
+                                        </td>
+
+
+                                        <td scope="row">
+                                            {{gold.reduccion|currency:"$."}}
+                                        </td>
+                                        <td scope="row">
+                                            {{gold.reduccion*gold.cambio|currency:"Q."}}
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            Total
+                                        </th>
+                                        <th scope="row">
+                                            {{gold.aumento-gold.reduccion|currency:"$."}}
+                                        </th>
+                                        <th scope="row">
+                                            {{(gold.aumento-gold.reduccion)*gold.cambio|currency:"Q."}}
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <b>
+                        <h3>Balance total:
+                            {{((gold.aumento-gold.reduccion)*gold.cambio)+(normal.aumentoQ-normal.reduccionQ)|currency:"Q."}}
+                        </h3>
+                    </b>
+                </div>
+            </div>
+
+            <br>
+
+        </div>
+    </div>
+</div>

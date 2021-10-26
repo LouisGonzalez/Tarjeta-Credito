@@ -23,6 +23,7 @@
         <tbody>
             <tr *ngFor="let tarjetas of dataSource">
                 <th scope="row">
+
                     {{tarjetas.Usuario.username+'.'+tarjetas.Tipo_cuentum.nombre+'@'+tarjetas.numero_tarjeta+'.com'}}
                 </th>
                 <td>{{tarjetas.saldo | currency:tarjetas.Tipo_cuentum.Moneda.simbolo+"."}}</td>
@@ -33,16 +34,18 @@
                 </td>
                 <td *ngIf="tarjetas.Eliminacions.length!=0" style="color: red;">Eliminada</td>
                 <td>
-                    <button type="button" class="btn btn-outline-info"
-                        *ngIf="tarjetas.Eliminacions.length==0">Transacciones</button>&nbsp;
+                    <!--<button type="button" class="btn btn-outline-info"
+                        *ngIf="tarjetas.Eliminacions.length==0">Transacciones</button>&nbsp;-->
                     <button type="button" class="btn btn-outline-primary"
                         *ngIf="tarjetas.Deshabilitacions.length!=0 && tarjetas.Eliminacions.length==0">Habilitar</button>&nbsp;
                     <button type="button" class="btn btn-outline-warning"
                         *ngIf="tarjetas.Deshabilitacions.length==0 && tarjetas.Eliminacions.length==0">Deshabilitar</button>&nbsp;
                     <button type="button" class="btn btn-outline-danger"
                         *ngIf="tarjetas.Eliminacions.length==0">Eliminar</button>
+                    <label *ngIf="tarjetas.Eliminacions.length!=0">Motivo: {{tarjetas.Eliminacions[0].motivo}}</label>
                 </td>
             </tr>
         </tbody>
+
     </table>
 </div>

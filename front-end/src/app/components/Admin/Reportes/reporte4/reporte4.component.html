@@ -1,0 +1,96 @@
+<div class="container">
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h2>Buscar tarjeta</h2>
+        </div>
+    </div>
+    <br>
+    <div class="form-group row justify-content-center">
+        <div class='col-5'>
+
+
+            <div class="col-md-12">
+                <div class="input-group mb-3">
+                    <input [(ngModel)]="numero" id="dpi" type="text" class="form-control"
+                        placeholder="Ingrese el numero de la tarjeta" aria-label="Ingrese el numero de la tarjeta"
+                        aria-describedby="button-addon2" pattern="[0-9]*" maxlength="10" required autofocus
+                        [ngModelOptions]="{standalone: true}">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                        (click)="buscarTarjeta()">Buscar</button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card" *ngIf="tarjetaEncontrada.numero_tarjeta!=null">
+                <div class="card-body">
+                    <div class='row'>
+                        <div class='col-4'>
+                            <b>No. de tarjeta:</b> {{tarjetaEncontrada.numero_tarjeta}}
+                        </div>
+                        <div class='col-4'>
+                            <b>Usuario:</b> {{tarjetaEncontrada.Usuario.nombre}}
+                        </div>
+                        <div class='col-4'>
+                            <b>Tipo de cuenta:</b> {{tarjetaEncontrada.Tipo_cuentum.nombre}}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h4>Transacciones</h4>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Monto</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let mov of tarjetaEncontrada.Transaccions">
+                                        <td scope="row" *ngIf="mov.es_Aumento" style="color: greenyellow;">
+                                            {{mov.monto| currency:tarjetaEncontrada.Tipo_cuentum.Moneda.simbolo+"."}}
+                                        </td>
+                                        <td scope="row" *ngIf="!mov.es_Aumento" style="color: red;">
+                                            {{mov.monto| currency:tarjetaEncontrada.Tipo_cuentum.Moneda.simbolo+"."}}
+                                        </td>
+                                        <td scope="row" *ngIf="mov.es_Aumento" style="color: greenyellow;">
+                                            Aumento
+                                        </td>
+                                        <td scope="row" *ngIf="!mov.es_Aumento" style="color: red;">
+                                            Reduccion
+                                        </td>
+                                        <td scope="row">
+                                            {{mov.fecha|formatDate}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h4><b>Saldo: {{saldo|currency:tarjetaEncontrada.Tipo_cuentum.Moneda.simbolo+"."}}</b></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>
