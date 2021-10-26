@@ -71,6 +71,35 @@ const buscar = async (req, res) => {
     }
 };
 
+const buscarTarjetas = async (req, res) => {
+    try {
+        //findByPk busca un elemento por la llave primaria de la tabla
+        const tarjeta = await Tarjeta.findAll({
+            include: [Transaccion,
+                {
+                    model: Tipo_cuenta,
+                    include: [{
+                        model: Moneda
+                    }]
+                },
+                Usuario
+            ],
+            where: { usuario_id: req.params.tarjetaId },
+            order: [['tarjeta_id']]
+        });
+        //si devuelve null, es porque no existe ese elemento
+        if (tarjeta === null) {
+            return res.status(500).json({ error: "No se ha encontrado" });
+        } else {
+            //si nuestra consulta es exitosa devulve el array con el objeto
+            return res.status(200).json({ tarjeta });
+        }
+
+    } catch (error) {
+        //si nuestra consulta falla tira un mensaje de error
+        return res.status(500).send(error.message);
+    }
+};
 
 const guardar = async (req, res) => {
     try {
@@ -287,5 +316,5 @@ module.exports = {
     tarjetasBloqueadas,
     totalTarjetas,
     cierre,
-
+    buscarTarjetas,
 }

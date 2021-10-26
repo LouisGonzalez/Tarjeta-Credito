@@ -12,6 +12,9 @@ import { Reporte5Component } from './components/Admin/Reportes/reporte5/reporte5
 import { CrudMonedaComponent } from './components/Admin/crud-moneda/crud-moneda.component'
 import { CrudTipoComponent } from './components/Admin/crud-tipo/crud-tipo.component'
 
+//Componentes para usuario
+import { UserHomeComponent } from './components/user/user-home/user-home.component';
+
 const routes: Routes = [
   //rutas para admin
   { path: '', component: AdminComponent },
@@ -23,6 +26,7 @@ const routes: Routes = [
   { path: 'reporte5', component: Reporte5Component },
   { path: 'tipo-cuenta', component: CrudTipoComponent },
   { path: 'moneda', component: CrudMonedaComponent },
+  { path: 'user', component: UserHomeComponent }
 ];
 
 @NgModule({

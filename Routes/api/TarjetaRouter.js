@@ -13,6 +13,7 @@ router.get('/cierre', TarjetaController.cierre);
 router.get('/', TarjetaController.listar);
 //si recibe id, como en buscar se tiene que especificar
 router.get('/:tarjetaId', TarjetaController.buscar);
+router.get('/buscar-tarjetas/:tarjetaId', TarjetaController.buscarTarjetas);
 router.post('/', TarjetaController.guardar);
 router.put('/:tarjetaId', TarjetaController.actualizar);
 router.delete('/:tarjetaId', TarjetaController.eliminar);

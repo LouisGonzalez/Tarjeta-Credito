@@ -67,4 +67,9 @@ export class TarjetaService {
     let a = this._http.post(this.url + "eliminacion", eliminacion)
     return a;
   }
+
+  buscarTarjetas(usuario_id: number): Observable<any> {
+    let a = this._http.get(this.url + "tarjeta/buscar-tarjetas/" + usuario_id)
+    return a;
+  }
 }
