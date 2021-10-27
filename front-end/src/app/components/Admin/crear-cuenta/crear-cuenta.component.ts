@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TipoService } from '../../../services/tipo/tipo.service'
 import { UsuarioService } from '../../../services/usuario/usuario.service'
 import { TarjetaService } from '../../../services/tarjeta/tarjeta.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-cuenta',
@@ -90,11 +91,25 @@ export class CrearCuentaComponent implements OnInit {
         usuario_id: this.usuarioEncontrado.usuario_id,
         tipo_cuenta_id: this.tipo.tipo_cuenta_id,
       }
-      console.log(this.nuevaTarjeta)
-      this._tarjetaService.crearTarjeta(this.nuevaTarjeta).subscribe(response => {
-        console.log(response)
-        this._router.navigate(['/']);
+
+      Swal.fire({
+        title: 'Desea crear una tarjeta con los siguientes datos?',
+        text: 'Numero: ' + this.nuevaTarjeta.numero_tarjeta + ', CVV: ' + cvv + ', Fecha de vencimiento: ' + fecha.getDay().toString() + '/' + fecha.getMonth().toString() + '/' + fecha.getFullYear().toString(),
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmar',
+        confirmButtonColor: '#124bef',
+        allowOutsideClick: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this._tarjetaService.crearTarjeta(this.nuevaTarjeta).subscribe(response => {
+            console.log(response)
+            this._router.navigate(['/']);
+          })
+        }
       })
+      console.log(this.nuevaTarjeta)
+
     })
 
     /*this._tarjetaService.crearTarjeta(this.nuevaTarjeta).subscribe(response => {

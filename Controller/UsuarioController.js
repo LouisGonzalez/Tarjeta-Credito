@@ -1,6 +1,8 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
 var { Usuario } = require('../db');
+const { Sequelize, Op } = require('sequelize')
+const jwt = require('jwt-simple')
 
 const listar = async (req, res) => {
     try {
@@ -77,6 +79,47 @@ const actualizar = async (req, res) => {
     }
 }
 
+
+const login = async (req, res) => {
+    try {
+        //pide los datos del body del req, va actualizar todos los parametros necesarios
+        //necesitan hacer comprobaciones sobre si existe o no en el body. 
+        if (req.body.username === "") {
+            return res.status(500).json({ error: "no puede aceptar campos vacios" });
+        } else {
+            //si la consulta viene bien con todo lo necesario se crea el nuevo elemento en la tabla
+            const usuario = await Usuario.findOne({ where: { [Op.and]: [{ username: req.body.username }, { password: req.body.password }] } });
+            if (usuario) {
+                //res.json({ success: createToken(usuario) })
+                createToken(usuario, res)
+            } else {
+                return res.json({ error: "Usuario o password incorrectos" });
+            }
+            //return res.status(200).json({ usuario });
+        }
+    } catch (error) {
+        //si hubo error se nos despliega un mensaje
+        return res.status(500).send(error.message);
+    }
+}
+const createToken = async (user, res) => {
+    const payload = {
+        usuario_id: user.usuario_id,
+        username: user.username,
+        admin: user.admin,
+        nombre: user.nombre,
+    }
+    const usuario = {
+        usuario_id: user.usuario_id,
+        username: user.username,
+        admin: user.admin,
+        nombre: user.nombre,
+    }
+
+    let token = jwt.encode(payload, 'tarjeta')
+    return res.status(200).json({ success: token, usuario: usuario })
+}
+
 const eliminar = async (req, res) => {
     try {
         await Usuario.destroy({
@@ -99,5 +142,6 @@ module.exports = {
     guardar,
     actualizar,
     eliminar,
-    buscarDPI
+    buscarDPI,
+    login,
 }

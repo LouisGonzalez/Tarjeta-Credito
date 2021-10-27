@@ -18,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CrudMonedaComponent } from './components/Admin/crud-moneda/crud-moneda.component';
 import { CrudTipoComponent } from './components/Admin/crud-tipo/crud-tipo.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { UserHomeComponent } from './components/user/user-home/user-home.compone
     CrudMonedaComponent,
     CrudTipoComponent,
     UserHomeComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

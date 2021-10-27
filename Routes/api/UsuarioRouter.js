@@ -5,6 +5,7 @@ const router = require('express').Router();
 var UsuarioController = require('../../controller/UsuarioController');
 
 //este es nuestro listado de rutas para los metodos
+router.post('/login', UsuarioController.login);
 router.get('/', UsuarioController.listar);
 //si recibe id, como en buscar se tiene que especificar
 router.get('/dpi/:dpi', UsuarioController.buscarDPI);

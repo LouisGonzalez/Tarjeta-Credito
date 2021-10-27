@@ -1,10 +1,20 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
-var { Comentario} = require('../db');
+var { Comentario, Usuario } = require('../db');
+
+Usuario.hasMany(Comentario, { foreignKey: 'usuario_id' })
+Comentario.belongsTo(Usuario, { foreignKey: 'usuario_id' })
 
 const listar = async (req, res) => {
     try {
-        const comentario = await Comentario.findAll();
+        const comentario = await Comentario.findAll({
+            include: [{
+                attributes: ['username'],
+                model: Usuario
+            }],
+            order: [["comentario_id", "desc"]],
+            limit: 2
+        });
         return res.status(200).json({ comentario });
     } catch (error) {
         //si nuestra consulta falla tira un mensaje de error
@@ -49,24 +59,24 @@ const guardar = async (req, res) => {
 }
 
 const actualizar = async (req, res) => {
-    try { 
+    try {
         //el primer if, pide que exista dentro del body el nombre de la columna.
         if (req.body.nombreComentario) {
             //este segundo if le indica que no tiene que venir vacío.
             if (req.body.nombreComentario === "") {
                 return res.status(500).json({ error: "El campo es obligatorio y no puede ir vacío" });
-            }else{
+            } else {
                 //si cumple todas las condiciones entonces realiza la actualización.
                 await Comentario.update(req.body, {
                     where: { comentario_id: req.params.comentarioId }
                 })
                 //manda el mensaje de exito.
-                return res.status(200).json({ success: "Se ha modificado" });   
+                return res.status(200).json({ success: "Se ha modificado" });
             }
         }
         //si algo sale mal lo muestra.
         return res.status(500).json({ error: "faltan campos" });
-        
+
     } catch (error) {
         return res.status(500).send(error.message);
     }

@@ -43,7 +43,7 @@ export class AdminComponent implements OnInit {
       },
       showCancelButton: true,
       confirmButtonText: 'Confirmar',
-      confirmButtonColor: '#d33',
+      confirmButtonColor: '#124bef',
       allowOutsideClick: false
     }).then((result) => {
       console.log(result)
@@ -79,7 +79,7 @@ export class AdminComponent implements OnInit {
       },
       showCancelButton: true,
       confirmButtonText: 'Confirmar',
-      confirmButtonColor: '#d33',
+      confirmButtonColor: '#124bef',
       allowOutsideClick: false
     }).then((result) => {
       if (result.isConfirmed) {

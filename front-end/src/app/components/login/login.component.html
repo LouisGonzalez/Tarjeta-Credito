@@ -1,0 +1,56 @@
+<div class="container">
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <h2>Login</h2>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <input [(ngModel)]="username" id="username" type="text" class="form-control"
+                                    placeholder="Nombre de usuario" aria-describedby="button-addon2" required autofocus>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <input [(ngModel)]="password" id="password" type="text" class="form-control"
+                                    placeholder="Contraseña" aria-describedby="button-addon2" required autofocus>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-outline-primary" (click)="login()">Ingresar</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <h5><b>Comentarios de nuestros usuarios</b></h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row" *ngFor="let comentario of comentarios">
+                        <div class="col-auto">
+                            <b>{{comentario.Usuario.username}}: </b>{{comentario.comentario}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
