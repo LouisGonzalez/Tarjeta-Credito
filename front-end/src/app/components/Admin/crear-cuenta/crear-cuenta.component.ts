@@ -33,12 +33,19 @@ export class CrearCuentaComponent implements OnInit {
     this.tipo = new TipoCuenta()
     this.nuevaTarjeta = new CrearTarjeta()
   }
+
+
+  prueba(){
+    console.log('hello worddafasdfasfsdaf');
+  }
+
   onChangeTipo(tipo_id: string) {
     console.log(tipo_id)
     console.log(this.selectTipo)
     this.selectTipo.filter(x => {
       if (x.nombre == tipo_id) {
         console.log(x)
+        console.log('entro aqui');
         this.tipo = x
         this.limite = x.limite_default
       }

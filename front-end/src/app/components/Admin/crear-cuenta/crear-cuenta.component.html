@@ -49,13 +49,27 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label id="selectTipo" class=" col-form-label">Seleccione el tipo de cuenta</label>
-                                    <select id="selectTipo" class="form-select" required aria-label="select example">
+                                    <select class="form-select" >
                                         <option value=""></option>
                                         <option *ngFor="let selectTipo of selectTipo"
                                             value="{{selectTipo.tipo_cuenta_id}}"
                                             (click)="onChangeTipo(selectTipo.nombre)">
                                             {{selectTipo.nombre}}</option>
                                     </select>
+
+
+<!--                                    <div id="selectTipo" class="form-select" required aria-label="select example">
+                                        
+                                        <a *ngFor="let selectTipo of selectTipo"
+                                            
+                                            (click)="onChangeTipo(selectTipo.nombre)">
+                                            {{selectTipo.nombre}}</a>
+                                    </div>-->
+
+
+
+
+
                                     <div class="invalid-feedback">Seleccione el tipo de cuenta</div>
                                 </div>
                                 <div class=" col-6">
