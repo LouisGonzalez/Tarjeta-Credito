@@ -3,6 +3,8 @@
 var { Usuario } = require('../db');
 const { Sequelize, Op } = require('sequelize')
 const jwt = require('jwt-simple')
+const nodemailer = require('nodemailer');
+
 
 const listar = async (req, res) => {
     try {
@@ -84,8 +86,8 @@ const login = async (req, res) => {
     try {
         //pide los datos del body del req, va actualizar todos los parametros necesarios
         //necesitan hacer comprobaciones sobre si existe o no en el body. 
-        if (req.body.username === "") {
-            return res.status(500).json({ error: "no puede aceptar campos vacios" });
+        if (req.body.username === "" && req.body.password === "") {
+            return res.status(500).json({ error: "Debe ingresar su usuario y PIN" });
         } else {
             //si la consulta viene bien con todo lo necesario se crea el nuevo elemento en la tabla
             const usuario = await Usuario.findOne({ where: { [Op.and]: [{ username: req.body.username }, { password: req.body.password }] } });
@@ -93,7 +95,7 @@ const login = async (req, res) => {
                 //res.json({ success: createToken(usuario) })
                 createToken(usuario, res)
             } else {
-                return res.json({ error: "Usuario o password incorrectos" });
+                return res.status(500).json({ error: "Usuario o PIN incorrectos" });
             }
             //return res.status(200).json({ usuario });
         }
@@ -135,7 +137,58 @@ const eliminar = async (req, res) => {
     } catch (error) {
         return res.status(500).send(error.message);
     }
+
+
 }
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    tls: {
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false
+    },
+    auth: {
+        user: 'luisestuardo-bolanosgonzalez@cunoc.edu.gt',
+        pass: 'dshq glnx pcju jtpk',
+    }
+});
+
+const sendEmail = async (usuario, res) => {
+    //return new Promise((resolve, reject) => {
+    //console.log(usuario)
+    let mailOptions = {
+        //from: usuario.password,
+        to: usuario.correo,
+        subject: 'RECORDATIRIO DE PIN',
+        template: 'verification',
+        html: 'Su pin es: <strong>' + usuario.password + '<strong>'
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            //console.log("err1 ", error);
+            return res.status(500).json({ error: error });
+        } else {
+            return res.status(200).json({ success: "El pin se ha enviado correctamente, revise su correo electronico" });
+        }
+    })
+    //})
+}
+const enviarPin = async (req, res) => {
+    try {
+        const usuario = await Usuario.findOne({ where: { [Op.or]: [{ username: req.body.username }, { correo: req.body.username }] } });
+        if (usuario) {
+
+            sendEmail(usuario, res)
+        } else {
+            return res.status(500).json({ error: "El usuario o correo no existen" });
+        }
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 // es necesario exportar todas las funciones
 module.exports = {
     listar,
@@ -144,4 +197,5 @@ module.exports = {
     eliminar,
     buscarDPI,
     login,
+    enviarPin,
 }

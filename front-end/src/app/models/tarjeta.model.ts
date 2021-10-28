@@ -23,6 +23,7 @@ export class Transaccions {
     monto: number;
     fecha: string;
     es_Aumento: Boolean;
+    tarjeta_id: number
 }
 
 export class CrearTarjeta {

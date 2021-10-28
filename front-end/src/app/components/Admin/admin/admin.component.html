@@ -1,53 +1,69 @@
 <div class="container">
     <br>
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-                <button type="button" class="btn btn-outline-success" [routerLink]="['/crear-cuenta']">Crear
-                    cuenta</button>
+    <div class="row justify-content-md-center" *ngIf="cargando">
+        <div class="col-auto">
+            <div class="spinner-border text-info" style="width: 10rem; height: 10rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
             </div>
         </div>
+
     </div>
 
-    <br>
-    <table class="table table-dark">
-        <thead>
-            <tr>
-                <th scope="col">Tarjeta</th>
-                <th scope="col">Saldo</th>
-                <th scope="col">Limite</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Opciones</th>
-            </tr>
-        </thead>
+    <div *ngIf="!cargando">
 
-        <tbody>
-            <tr *ngFor="let tarjetas of dataSource">
-                <th scope="row">
-                    {{tarjetas.Usuario.username+'.'+tarjetas.Tipo_cuentum.nombre+'@'+tarjetas.numero_tarjeta+'.com'}}
-                </th>
-                <td>{{tarjetas.saldo | currency:tarjetas.Tipo_cuentum.Moneda.simbolo+"."}}</td>
-                <td>{{tarjetas.limite | currency:tarjetas.Tipo_cuentum.Moneda.simbolo+"."}}</td>
-                <td *ngIf="tarjetas.Deshabilitacions.length==0 && tarjetas.Eliminacions.length==0"
-                    style="color: greenyellow;">Activa</td>
-                <td *ngIf="tarjetas.Deshabilitacions.length!=0" style="color: rgba(255, 166, 0, 0.938);">Deshabilitada
-                </td>
-                <td *ngIf="tarjetas.Eliminacions.length!=0" style="color: red;">Eliminada</td>
-                <td>
-                    <!--<button type="button" class="btn btn-outline-info"
+
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-outline-success" [routerLink]="['/crear-cuenta']">Crear
+                        cuenta</button>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Tarjeta</th>
+                    <th scope="col">Saldo</th>
+                    <th scope="col">Limite</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let tarjetas of dataSource">
+                    <th scope="row">
+                        {{tarjetas.Usuario.username+'.'+tarjetas.Tipo_cuentum.nombre+'@'+tarjetas.numero_tarjeta+'.com'}}
+                    </th>
+                    <td><a (click)="reducirSaldo(tarjetas)" class="link-info">{{tarjetas.saldo |
+                            currency:tarjetas.Tipo_cuentum.Moneda.simbolo+"."}}</a></td>
+                    <td>{{tarjetas.limite | currency:tarjetas.Tipo_cuentum.Moneda.simbolo+"."}}</td>
+                    <td *ngIf="tarjetas.Deshabilitacions.length==0 && tarjetas.Eliminacions.length==0"
+                        style="color: greenyellow;">Activa</td>
+                    <td *ngIf="tarjetas.Deshabilitacions.length!=0" style="color: rgba(255, 166, 0, 0.938);">
+                        Deshabilitada
+                    </td>
+                    <td *ngIf="tarjetas.Eliminacions.length!=0" style="color: red;">Eliminada</td>
+                    <td>
+                        <!--<button type="button" class="btn btn-outline-info"
                         *ngIf="tarjetas.Eliminacions.length==0">Transacciones</button>&nbsp;-->
-                    <button type="button" class="btn btn-outline-primary"
-                        *ngIf="tarjetas.Deshabilitacions.length!=0 && tarjetas.Eliminacions.length==0"
-                        (click)="habilitar(tarjetas.tarjeta_id)">Habilitar</button>&nbsp;
-                    <button type="button" class="btn btn-outline-warning"
-                        *ngIf="tarjetas.Deshabilitacions.length==0 && tarjetas.Eliminacions.length==0"
-                        (click)="deshabilitar(tarjetas.tarjeta_id)">Deshabilitar</button>&nbsp;
-                    <button type="button" class="btn btn-outline-danger" *ngIf="tarjetas.Eliminacions.length==0"
-                        (click)="eliminar(tarjetas.tarjeta_id)">Eliminar</button>
-                    <label *ngIf="tarjetas.Eliminacions.length!=0">Motivo: {{tarjetas.Eliminacions[0].motivo}}</label>
-                </td>
-            </tr>
-        </tbody>
+                        <button type="button" class="btn btn-outline-primary"
+                            *ngIf="tarjetas.Deshabilitacions.length!=0 && tarjetas.Eliminacions.length==0"
+                            (click)="habilitar(tarjetas.tarjeta_id)">Habilitar</button>&nbsp;
+                        <button type="button" class="btn btn-outline-warning"
+                            *ngIf="tarjetas.Deshabilitacions.length==0 && tarjetas.Eliminacions.length==0"
+                            (click)="deshabilitar(tarjetas.tarjeta_id)">Deshabilitar</button>&nbsp;
+                        <button type="button" class="btn btn-outline-danger" *ngIf="tarjetas.Eliminacions.length==0"
+                            (click)="eliminar(tarjetas.tarjeta_id)">Eliminar</button>
+                        <label *ngIf="tarjetas.Eliminacions.length!=0">Motivo:
+                            {{tarjetas.Eliminacions[0].motivo}}</label>
+                    </td>
+                </tr>
+            </tbody>
 
-    </table>
+        </table>
+    </div>
 </div>

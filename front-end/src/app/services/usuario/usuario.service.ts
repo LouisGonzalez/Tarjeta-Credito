@@ -49,4 +49,9 @@ export class UsuarioService {
     let a = this._http.post(this.url + `usuario/login`, body)
     return a;
   }
+  recordarPin(username: string): Observable<any> {
+    let body = { username: username }
+    let a = this._http.post(this.url + `usuario/enviar-pin`, body)
+    return a;
+  }
 }

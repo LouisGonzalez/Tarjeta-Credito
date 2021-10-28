@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TarjetaService } from '../../../services/tarjeta/tarjeta.service'
-import { Tarjeta } from '../../../models/tarjeta.model'
+import { Tarjeta, Transaccions } from '../../../models/tarjeta.model'
 import { Deshabilitacion } from '../../../models/deshabilitacion.model'
 import Swal from "sweetalert2"
 import { Eliminacion } from 'src/app/models/eliminacion.model';
@@ -15,6 +15,8 @@ export class AdminComponent implements OnInit {
   dataSource: Tarjeta[]
   deshabilitardata: Deshabilitacion
   eliminardata: Eliminacion
+  cargando: Boolean = true
+  actualizandoSaldos: Boolean = false
   constructor(
     private tarjetaService: TarjetaService,
   ) {
@@ -102,12 +104,64 @@ export class AdminComponent implements OnInit {
       }
     })
   }
+  reducirSaldo(tarjeta: Tarjeta) {
+    Swal.fire({
+      title: 'Reducir saldo de la cuenta',
+      text: 'Ingrese la cantidad, debe ser menor a: ' + tarjeta.saldo,
+      icon: 'info',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Confirmar',
+      confirmButtonColor: '#124bef',
+      allowOutsideClick: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (Number(result.value) <= tarjeta.saldo && Number(result.value) > 0) {
+          let transaccion = new Transaccions()
+          transaccion.es_Aumento = false
+          transaccion.monto = Number(result.value)
+          transaccion.tarjeta_id = tarjeta.tarjeta_id
+          //this.cargando = true
+          this.tarjetaService.crearTransaccion(transaccion).subscribe(response => {
+            console.log(response)
+            Swal.fire({
+              title: `Valor modificado con exito`,
+              icon: 'success',
+            })
+            /*this.dataSource = this.dataSource.filter(x => {
+              if (x.tarjeta_id == tarjeta.tarjeta_id) {
+                x.saldo -= Number(result.value)
+              }
+              return x
+
+            })*/
+            this.ngOnInit()
+            //window.location.reload()
+          })
+        } else {
+          Swal.fire({
+            title: `Por favor ingrese una cantidad valida`,
+            icon: 'warning',
+          })
+        }
+      }
+    })
+  }
 
   ngOnInit(): void {
+    /*this.tarjetaService.actualizarSaldos().subscribe(response => {
+      console.log(response.success)
+      this.actualizandoSaldos = false
+    })*/
     this.tarjetaService.listarTarjetas().subscribe(response => {
       console.log(response)
       this.dataSource = response.tarjeta
+      this.cargando = false
     })
+
   }
 
 }

@@ -18,12 +18,32 @@
                         </div>
                         <div class="col-12">
                             <div class="input-group mb-3">
-                                <input [(ngModel)]="password" id="password" type="text" class="form-control"
-                                    placeholder="Contraseña" aria-describedby="button-addon2" required autofocus>
+                                <input [(ngModel)]="password" id="password" type="password" class="form-control"
+                                    placeholder="PIN" aria-describedby="button-addon2" required autofocus>
+                            </div>
+
+                        </div>
+                        <div class="col-auto" *ngIf="!enviandoPin">
+                            <button type="button" class="btn btn-outline-primary" (click)="login()">Ingresar</button>
+                        </div>
+                        <div class="col-auto" *ngIf="enviandoPin">
+                            <div class="spinner-border text-info" role="status">
+                                <span class="visually-hidden">Loading...</span>
+
                             </div>
                         </div>
+
+
+
+                    </div>
+                    <div class="row justify-content-center" *ngIf="!enviandoPin">
                         <div class="col-auto">
-                            <button type="button" class="btn btn-outline-primary" (click)="login()">Ingresar</button>
+                            <a (click)="recordarPin()" class="link-info">He olvidado mi PIN</a>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center" *ngIf="enviandoPin">
+                        <div class="col-auto">
+                            <label class="text-info">Enviando PIN</label>
                         </div>
                     </div>
                 </div>
