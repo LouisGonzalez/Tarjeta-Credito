@@ -30,14 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'Deshabilitacion',
     timestamps: false,
     indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
+      
       {
         name: "id",
         unique: true,

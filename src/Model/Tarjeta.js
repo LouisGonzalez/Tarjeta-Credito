@@ -53,14 +53,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'Tarjeta',
     timestamps: false,
     indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "tarjeta_id" },
-        ]
-      },
+      
       {
         name: "tarjeta_id",
         unique: true,

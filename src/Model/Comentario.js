@@ -24,14 +24,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'Comentario',
     timestamps: false,
     indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "comentario_id" },
-        ]
-      },
+    
       {
         name: "IX_Relationship1",
         using: "BTREE",
