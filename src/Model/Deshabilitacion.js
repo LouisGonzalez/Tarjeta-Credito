@@ -28,8 +28,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'Deshabilitacion',
-    timestamps: false,
-    indexes: [
+    timestamps: false
+/*    indexes: [
       
       {
         name: "id",
@@ -46,6 +46,6 @@ module.exports = function(sequelize, DataTypes) {
           { name: "tarjeta_id" },
         ]
       },
-    ]
+    ]*/
   });
 };
