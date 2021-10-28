@@ -77,7 +77,7 @@ app.use(cors({
     origin: "https://tarjeta-credito-seminario.herokuapp.com/",
     credentials: true
 }));
-app.use(bodyParser());
+//app.use(bodyParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
