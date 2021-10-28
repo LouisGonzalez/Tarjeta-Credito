@@ -1,6 +1,6 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
-var { Tarjeta, Usuario, Tipo_cuenta, Moneda, Deshabilitacion, Eliminacion, Transaccion } = require('../db');
+var { Tarjeta, Usuario, Tipo_cuenta, Moneda, Deshabilitacion, Eliminacion, Transaccion } = require('../Db');
 const { Sequelize, Op } = require('sequelize')
 
 Usuario.hasMany(Tarjeta, { foreignKey: 'usuario_id' })

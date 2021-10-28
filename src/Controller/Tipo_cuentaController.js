@@ -1,6 +1,6 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
-var { Tipo_cuenta, Moneda } = require('../db');
+var { Tipo_cuenta, Moneda } = require('../Db');
 
 Moneda.hasMany(Tipo_cuenta, { foreignKey: 'moneda_id' })
 Tipo_cuenta.belongsTo(Moneda, { foreignKey: 'moneda_id' })
