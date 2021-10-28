@@ -54,7 +54,7 @@ const transaccionModel = require('./Model/Transaccion');
 const Transaccion = transaccionModel(sequelize, Sequelize);
 
 //sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(
-    sequelize.sync({ force: false }).then(() => {
+    sequelize.sync({ force: true }).then(() => {
         console.log('Tablas sincronizadas')
     }).catch(err => console.log(err));
 
