@@ -1,0 +1,43 @@
+<div class="container">
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <div class='card-title'>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h2>Listado de monedas</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Simbolo</th>
+                                <th scope="col">Cambio(Q)</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let monedas of dataSource">
+                                <th scope="row">
+                                    {{monedas.nombre}}
+                                </th>
+                                <td>{{monedas.simbolo}}</td>
+                                <td>{{monedas.cambio_quetzales | currency:"Q."}}</td>
+                                <td><button type="button" class="btn btn-outline-warning"
+                                        *ngIf="monedas.nombre=='Dolar'" (click)="modificarCambio(monedas)">Modificar
+                                        cambio</button></td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

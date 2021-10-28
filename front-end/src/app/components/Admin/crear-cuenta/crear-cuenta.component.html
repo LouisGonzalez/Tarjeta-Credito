@@ -20,12 +20,12 @@
                                 <div class="input-group mb-3">
                                     <input [(ngModel)]="dpi" id="dpi" type="text" class="form-control"
                                         placeholder="Ingrese el DPI del cliente" aria-label="Ingrese el DPI del cliente"
-                                        aria-describedby="button-addon2" pattern="[0-9]*" maxlength="13" required
-                                        autofocus [ngModelOptions]="{standalone: true}">
+                                        aria-describedby="button-addon2" pattern="[0-9]*" minlength="13" maxlength="13"
+                                        required autofocus [ngModelOptions]="{standalone: true}">
                                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"
                                         (click)="buscarUsuario()">Buscar</button>
                                     <div id="dpi" class="invalid-feedback">
-                                        Ingrese
+                                        Ingrese un DPI valido
                                     </div>
                                 </div>
 
@@ -82,14 +82,13 @@
                                         <input [(ngModel)]='limite' type="text" class="form-control " id="limite"
                                             [ngModelOptions]="{standalone: true}" required>
                                         <div id="userName" class="invalid-feedback">
-                                            Ingrese
+                                            Ingrese el limite del credito
                                         </div>
                                     </div>
 
                                 </div>
 
                             </div>
-
 
                         </form>
                         <div class='row'>

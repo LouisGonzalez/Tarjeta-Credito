@@ -1,6 +1,6 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
-var { Moneda} = require('../db');
+var { Moneda } = require('../db');
 
 const listar = async (req, res) => {
     try {
@@ -49,24 +49,12 @@ const guardar = async (req, res) => {
 }
 
 const actualizar = async (req, res) => {
-    try { 
-        //el primer if, pide que exista dentro del body el nombre de la columna.
-        if (req.body.nombreMoneda) {
-            //este segundo if le indica que no tiene que venir vacío.
-            if (req.body.nombreMoneda === "") {
-                return res.status(500).json({ error: "El campo es obligatorio y no puede ir vacío" });
-            }else{
-                //si cumple todas las condiciones entonces realiza la actualización.
-                await Moneda.update(req.body, {
-                    where: { moneda_id: req.params.monedaId }
-                })
-                //manda el mensaje de exito.
-                return res.status(200).json({ success: "Se ha modificado" });   
-            }
-        }
-        //si algo sale mal lo muestra.
-        return res.status(500).json({ error: "faltan campos" });
-        
+    try {
+        await Moneda.update(req.body, {
+            where: { moneda_id: req.params.monedaId }
+        })
+        //manda el mensaje de exito.
+        return res.status(200).json({ success: "Se ha modificado" });
     } catch (error) {
         return res.status(500).send(error.message);
     }

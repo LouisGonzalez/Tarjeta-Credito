@@ -1,6 +1,8 @@
 //va a la instancia de modelo y de sequelize del archivo bd
 //params es lo que viene en la URL, body es lo que viene como formulario osea x-www-form-urlenconded
-var { Tarjeta, Usuario, Tipo_cuenta, Moneda, Deshabilitacion, Eliminacion } = require('../db');
+var { Tarjeta, Usuario, Tipo_cuenta, Moneda, Deshabilitacion, Eliminacion, Transaccion } = require('../db');
+const { Sequelize, Op } = require('sequelize')
+
 Usuario.hasMany(Tarjeta, { foreignKey: 'usuario_id' })
 Tarjeta.belongsTo(Usuario, { foreignKey: 'usuario_id' })
 
@@ -16,6 +18,9 @@ Deshabilitacion.belongsTo(Tarjeta, { foreignKey: 'tarjeta_id' })
 Tarjeta.hasMany(Eliminacion, { foreignKey: 'tarjeta_id' })
 Eliminacion.belongsTo(Tarjeta, { foreignKey: 'tarjeta_id' })
 
+Tarjeta.hasMany(Transaccion, { foreignKey: 'tarjeta_id' })
+Transaccion.belongsTo(Tarjeta, { foreignKey: 'tarjeta_id' })
+
 const listar = async (req, res) => {
     try {
         const tarjeta = await Tarjeta.findAll({
@@ -28,7 +33,8 @@ const listar = async (req, res) => {
                 },
                 Deshabilitacion,
                 Eliminacion
-            ]
+            ],
+            order: [['tarjeta_id']]
         });
         return res.status(200).json({ tarjeta });
     } catch (error) {
@@ -40,7 +46,17 @@ const listar = async (req, res) => {
 const buscar = async (req, res) => {
     try {
         //findByPk busca un elemento por la llave primaria de la tabla
-        const tarjeta = await Tarjeta.findByPk(req.params.tarjetaId);
+        const tarjeta = await Tarjeta.findOne({
+            include: [Transaccion,
+                {
+                    model: Tipo_cuenta,
+                    include: [{
+                        model: Moneda
+                    }]
+                },
+                Usuario],
+            where: { numero_tarjeta: req.params.tarjetaId },
+        });
         //si devuelve null, es porque no existe ese elemento
         if (tarjeta === null) {
             return res.status(500).json({ error: "No se ha encontrado" });
@@ -55,6 +71,35 @@ const buscar = async (req, res) => {
     }
 };
 
+const buscarTarjetas = async (req, res) => {
+    try {
+        //findByPk busca un elemento por la llave primaria de la tabla
+        const tarjeta = await Tarjeta.findAll({
+            include: [Transaccion,
+                {
+                    model: Tipo_cuenta,
+                    include: [{
+                        model: Moneda
+                    }]
+                },
+                Usuario
+            ],
+            where: { usuario_id: req.params.tarjetaId },
+            order: [['tarjeta_id']]
+        });
+        //si devuelve null, es porque no existe ese elemento
+        if (tarjeta === null) {
+            return res.status(500).json({ error: "No se ha encontrado" });
+        } else {
+            //si nuestra consulta es exitosa devulve el array con el objeto
+            return res.status(200).json({ tarjeta });
+        }
+
+    } catch (error) {
+        //si nuestra consulta falla tira un mensaje de error
+        return res.status(500).send(error.message);
+    }
+};
 
 const guardar = async (req, res) => {
     try {
@@ -130,6 +175,135 @@ const generarDatos = async (req, res) => {
     }
 };
 
+//reportes
+const ultimosMovimientos = async (req, res) => {
+    try {
+        const movimentos = await Transaccion.findAll({
+            include: [{
+                attributes: ['numero_tarjeta'],
+                model: Tarjeta,
+                include: [{
+                    attributes: ['nombre'],
+                    model: Tipo_cuenta,
+                    include: [{
+                        attributes: ['simbolo'],
+                        model: Moneda
+                    }]
+                }]
+
+            }],
+            where: { fecha: { [Op.gte]: req.params.fecha } }
+        });
+
+        //console.log(datos)
+        return res.status(200).json({ movimentos });
+    } catch (error) {
+        //si nuestra consulta falla tira un mensaje de error
+        return res.status(500).send(error.message);
+    }
+};
+
+const tarjetasBloqueadas = async (req, res) => {
+    try {
+        const tarjeta = await Deshabilitacion.findAll({
+            include: [{
+                attributes: ['numero_tarjeta'],
+                model: Tarjeta,
+                required: true
+            }]
+        });
+
+        //console.log(datos)
+        return res.status(200).json({ tarjeta });
+    } catch (error) {
+        //si nuestra consulta falla tira un mensaje de error
+        return res.status(500).send(error.message);
+    }
+};
+const totalTarjetas = async (req, res) => {
+    try {
+        const deshabilitadas = await Tarjeta.findAll({
+            attributes: [[Sequelize.fn('count', Sequelize.col('Tarjeta.tarjeta_id')), 'cantidad']],
+            include: [{
+                attributes: [],
+                model: Deshabilitacion,
+                required: true
+            }]
+        });
+        const eliminadas = await Tarjeta.findAll({
+            attributes: [[Sequelize.fn('count', Sequelize.col('Tarjeta.tarjeta_id')), 'cantidad']],
+            include: [{
+                attributes: [],
+                model: Eliminacion,
+                required: true
+            }]
+        });
+        const todas = await Tarjeta.findAll({
+            attributes: [[Sequelize.fn('count', Sequelize.col('tarjeta_id')), 'cantidad']],
+
+        });
+
+        //console.log(datos)
+        return res.status(200).json({ deshabilitadas, eliminadas, todas });
+    } catch (error) {
+        //si nuestra consulta falla tira un mensaje de error
+        return res.status(500).send(error.message);
+    }
+};
+
+const cierre = async (req, res) => {
+    try {
+        const aumentos = await Moneda.findAll({
+            attributes: ['moneda_id', 'nombre', 'simbolo', 'cambio_quetzales', [Sequelize.fn('sum', Sequelize.col('Tipo_cuenta.Tarjeta.Transaccions.monto')), 'cantidad']],
+            include: [{
+                attributes: [],
+                model: Tipo_cuenta,
+                required: true,
+                include: [{
+                    attributes: [],
+                    model: Tarjeta,
+                    required: true,
+                    include: [{
+                        attributes: [],
+                        model: Transaccion,
+                        required: true,
+                        where: { es_Aumento: true }
+                    }]
+                }]
+            }],
+            group: 'moneda_id'
+        });
+
+        const reducciones = await Moneda.findAll({
+            attributes: ['moneda_id', 'nombre', 'simbolo', [Sequelize.fn('sum', Sequelize.col('Tipo_cuenta.Tarjeta.Transaccions.monto')), 'cantidad']],
+            include: [{
+                attributes: [],
+                model: Tipo_cuenta,
+                required: true,
+                include: [{
+                    attributes: [],
+                    model: Tarjeta,
+                    required: true,
+                    include: [{
+                        attributes: [],
+                        model: Transaccion,
+                        required: true,
+                        where: { es_Aumento: false }
+                    }]
+                }]
+            }],
+            group: 'moneda_id'
+        });
+
+        //console.log(datos)
+        return res.status(200).json({ aumentos, reducciones });
+    } catch (error) {
+        //si nuestra consulta falla tira un mensaje de error
+        return res.status(500).send(error.message);
+    }
+};
+
+
 // es necesario exportar todas las funciones
 module.exports = {
     listar,
@@ -138,4 +312,9 @@ module.exports = {
     eliminar,
     buscar,
     generarDatos,
+    ultimosMovimientos,
+    tarjetasBloqueadas,
+    totalTarjetas,
+    cierre,
+    buscarTarjetas,
 }

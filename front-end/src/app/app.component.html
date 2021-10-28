@@ -1,38 +1,61 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Portal de Tarjetas de Credito</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/login" *ngIf="usuario==null">Portal de Tarjetas de Credito</a>
+    <button *ngIf="usuario==null" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a *ngIf="usuario!=null" class="navbar-brand" href="{{usuario?.admin ? '' : '/user'}}">Portal de Tarjetas de
+      Credito</a>
+    <button *ngIf="usuario!=null" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="usuario?.admin">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             Reportes
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Movimientos</a></li>
-            <li><a class="dropdown-item" href="#">Cuentas deshabilitadas</a></li>
-            <li><a class="dropdown-item" href="#">Total de cuentas</a></li>
-            <li><a class="dropdown-item" href="#">Buscar una tarjeta</a></li>
-            <li><a class="dropdown-item" href="#">Cierre</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/reporte1']">Movimientos</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/reporte2']">Cuentas deshabilitadas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/reporte3']">Total de cuentas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/reporte4']">Buscar una tarjeta</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/reporte5']">Cierre</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="usuario?.admin">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             Administracion
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Tipos de cuentas</a></li>
-            <li><a class="dropdown-item" href="#">Monedas y valor de cambio</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/tipo-cuenta']">Tipos de cuentas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/moneda']">Monedas y valor de cambio</a></li>
           </ul>
         </li>
       </ul>
+
+      <button *ngIf="usuario?.admin==false" type="button" class="btn btn-outline-success" (click)="crearComentario()">
+        Dejar comentario
+
+      </button>
+      &nbsp;&nbsp;&nbsp;
+      <button *ngIf="usuario!=null" type="button" class="btn btn-outline-danger" (click)="logOut()">
+        Salir
+        <span class="material-icons" style="font-size: 13px;">
+          logout
+        </span>
+
+      </button>
+
     </div>
   </div>
 </nav>

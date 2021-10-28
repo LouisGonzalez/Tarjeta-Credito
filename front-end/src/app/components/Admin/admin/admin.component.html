@@ -20,6 +20,7 @@
                 <th scope="col">Opciones</th>
             </tr>
         </thead>
+
         <tbody>
             <tr *ngFor="let tarjetas of dataSource">
                 <th scope="row">
@@ -33,16 +34,20 @@
                 </td>
                 <td *ngIf="tarjetas.Eliminacions.length!=0" style="color: red;">Eliminada</td>
                 <td>
-                    <button type="button" class="btn btn-outline-info"
-                        *ngIf="tarjetas.Eliminacions.length==0">Transacciones</button>&nbsp;
+                    <!--<button type="button" class="btn btn-outline-info"
+                        *ngIf="tarjetas.Eliminacions.length==0">Transacciones</button>&nbsp;-->
                     <button type="button" class="btn btn-outline-primary"
-                        *ngIf="tarjetas.Deshabilitacions.length!=0 && tarjetas.Eliminacions.length==0">Habilitar</button>&nbsp;
+                        *ngIf="tarjetas.Deshabilitacions.length!=0 && tarjetas.Eliminacions.length==0"
+                        (click)="habilitar(tarjetas.tarjeta_id)">Habilitar</button>&nbsp;
                     <button type="button" class="btn btn-outline-warning"
-                        *ngIf="tarjetas.Deshabilitacions.length==0 && tarjetas.Eliminacions.length==0">Deshabilitar</button>&nbsp;
-                    <button type="button" class="btn btn-outline-danger"
-                        *ngIf="tarjetas.Eliminacions.length==0">Eliminar</button>
+                        *ngIf="tarjetas.Deshabilitacions.length==0 && tarjetas.Eliminacions.length==0"
+                        (click)="deshabilitar(tarjetas.tarjeta_id)">Deshabilitar</button>&nbsp;
+                    <button type="button" class="btn btn-outline-danger" *ngIf="tarjetas.Eliminacions.length==0"
+                        (click)="eliminar(tarjetas.tarjeta_id)">Eliminar</button>
+                    <label *ngIf="tarjetas.Eliminacions.length!=0">Motivo: {{tarjetas.Eliminacions[0].motivo}}</label>
                 </td>
             </tr>
         </tbody>
+
     </table>
 </div>
