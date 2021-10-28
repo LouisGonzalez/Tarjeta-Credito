@@ -1,12 +1,21 @@
 //todas las librarias y paquetes que se requieren
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
-const puerto = process.env.PORT || 3000
+const puerto = process.env.PORT || 8080
 const apiRouter = require('./routes/api')
 const cors = require("cors")
 
 const app = express();
 require('./Db');
+
+
+app.use(express.static(__dirname+'/front-end/dist/front-end'));
+app.get('/',function(req,res){
+    res.sendFile(path.join(__dirname+'/front-end/dist/front-end/index.html'));
+});
+
+
 
 app.use(cors())
 app.options('*', cors())
