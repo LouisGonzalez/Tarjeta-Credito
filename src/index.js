@@ -56,7 +56,6 @@ app.listen(puerto, () => {
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 const puerto = process.env.PORT || 8080
 const apiRouter = require('./Routes/api.js')
 const cors = require("cors")
@@ -78,7 +77,6 @@ app.use(cors({
     origin: "https://tarjeta-credito-seminario.herokuapp.com/",
     credentials: true
 }));
-app.use(cookieParser());
 app.use(bodyParser());
 
 app.use(express.json());
