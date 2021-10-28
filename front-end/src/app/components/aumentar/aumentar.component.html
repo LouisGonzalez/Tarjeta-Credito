@@ -1,0 +1,68 @@
+<div class="container">
+    <button type="button" class="btn btn-outline-warning" (click)="actualizarSaldos()">Actualizar
+        saldos</button>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h2>Aumentar Saldo</h2>
+        </div>
+    </div>
+    <br>
+    <div class="form-group row justify-content-center">
+        <div class='col-5'>
+
+
+            <div class="col-md-12">
+                <div class="input-group mb-3">
+                    <input [(ngModel)]="numero" id="dpi" type="text" class="form-control"
+                        placeholder="Ingrese el numero de la tarjeta" aria-label="Ingrese el numero de la tarjeta"
+                        aria-describedby="button-addon2" pattern="[0-9]*" maxlength="10" required autofocus
+                        [ngModelOptions]="{standalone: true}">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                        (click)="buscarTarjeta()">Buscar</button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card" *ngIf="tarjetaEncontrada.numero_tarjeta!=null">
+                <div class="card-body">
+                    <div class='row'>
+                        <div class='col-4'>
+                            <b>No. de tarjeta:</b> {{tarjetaEncontrada.numero_tarjeta}}
+                        </div>
+                        <div class='col-4'>
+                            <b>Usuario:</b> {{tarjetaEncontrada.Usuario.nombre}}
+                        </div>
+                        <div class='col-4'>
+                            <b>Tipo de cuenta:</b> {{tarjetaEncontrada.Tipo_cuentum.nombre}}
+                        </div>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-outline-success"
+                        (click)="aumentarSaldo(tarjetaEncontrada)">Aumentar saldo</button>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h4><b>Limite:
+                                    {{tarjetaEncontrada.limite|currency:tarjetaEncontrada.Tipo_cuentum.Moneda.simbolo+"."}}</b>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h4><b>Saldo: {{saldo|currency:tarjetaEncontrada.Tipo_cuentum.Moneda.simbolo+"."}}</b></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>

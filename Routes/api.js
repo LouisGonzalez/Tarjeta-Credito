@@ -31,5 +31,8 @@ var apiEliminacionRouter = require('./api/EliminacionRouter');
 //si una ruta viene con /eliminacion el encargado de la ruta será apiEliminacionRouter, y se concatena a router
 router.use('/eliminacion', apiEliminacionRouter);
 
+var apiTransaccionRouter = require('./api/TransaccionRouter');
+//si una ruta viene con /transaccion el encargado de la ruta será apiTransaccionRouter, y se concatena a router
+router.use('/transaccion', apiTransaccionRouter);
 
 module.exports = router;

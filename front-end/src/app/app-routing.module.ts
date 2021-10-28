@@ -21,6 +21,7 @@ import { CrudTipoComponent } from './components/Admin/crud-tipo/crud-tipo.compon
 
 //Componentes para usuario
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
+import { AumentarComponent } from './components/aumentar/aumentar.component';
 
 
 
@@ -38,7 +39,8 @@ const routes: Routes = [
   { path: 'tipo-cuenta', component: CrudTipoComponent, canActivate: [LoginGuard, AdminGuard] },
   { path: 'moneda', component: CrudMonedaComponent, canActivate: [LoginGuard, AdminGuard] },
   //ruta para usuario
-  { path: 'user', component: UserHomeComponent, canActivate: [LoginGuard, UserGuard] }
+  { path: 'user', component: UserHomeComponent, canActivate: [LoginGuard, UserGuard] },
+  { path: 'aumentar', component: AumentarComponent }
 ];
 
 @NgModule({

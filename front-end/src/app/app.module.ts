@@ -19,6 +19,7 @@ import { CrudMonedaComponent } from './components/Admin/crud-moneda/crud-moneda.
 import { CrudTipoComponent } from './components/Admin/crud-tipo/crud-tipo.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import { LoginComponent } from './components/login/login.component';
+import { AumentarComponent } from './components/aumentar/aumentar.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { LoginComponent } from './components/login/login.component';
     CrudTipoComponent,
     UserHomeComponent,
     LoginComponent,
+    AumentarComponent,
   ],
   imports: [
     BrowserModule,

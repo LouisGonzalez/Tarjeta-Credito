@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http
 import { Observable, throwError } from "rxjs";
 import { GLOBAL } from "../global";
 
-import { Tarjeta, CrearTarjeta } from '../../models/tarjeta.model'
+import { Tarjeta, CrearTarjeta, Transaccions } from '../../models/tarjeta.model'
 import { Deshabilitacion } from 'src/app/models/deshabilitacion.model';
 import { Eliminacion } from 'src/app/models/eliminacion.model';
 
@@ -70,6 +70,14 @@ export class TarjetaService {
 
   buscarTarjetas(usuario_id: number): Observable<any> {
     let a = this._http.get(this.url + "tarjeta/buscar-tarjetas/" + usuario_id)
+    return a;
+  }
+  crearTransaccion(transaccion: Transaccions): Observable<any> {
+    let a = this._http.post(this.url + "transaccion", transaccion)
+    return a;
+  }
+  actualizarSaldos(): Observable<any> {
+    let a = this._http.get(this.url + "transaccion/actualizar-saldos")
     return a;
   }
 }
