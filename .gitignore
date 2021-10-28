@@ -1,5 +1,2 @@
-node_modules/
-front-end/node_modules/
-artisan_make.js
-ApiRouterUnitario.js
-BDGeneradoUnitario.js
+src/node_modules/
+src/front-end/node_modules/
