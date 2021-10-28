@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     dpi: {
       type: DataTypes.CHAR(50),
       allowNull: false,
-      unique: "dpi"
+      unique: true
     },
     nombre: {
       type: DataTypes.CHAR(100),
