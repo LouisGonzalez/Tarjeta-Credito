@@ -40,15 +40,19 @@ export class CrearCuentaComponent implements OnInit {
     console.log('hello worddafasdfasfsdaf');
   }
 
-  onChangeTipo(tipo_id: string) {
+  onChangeTipo(tipo_id: number) {
+    console.log("holaaaa");
     console.log(tipo_id)
     console.log(this.selectTipo)
     this.selectTipo.filter(x => {
-      if (x.nombre == tipo_id) {
+      if (x.tipo_cuenta_id == tipo_id) {
+        console.log("entro aqui")
         console.log(x)
         console.log('entro aqui');
         this.tipo = x
         this.limite = x.limite_default
+      } else {
+        console.log("la verdad entro aqui xd");
       }
     })
   }

@@ -15,7 +15,7 @@ export class AdminComponent implements OnInit {
   dataSource: Tarjeta[]
   deshabilitardata: Deshabilitacion
   eliminardata: Eliminacion
-  cargando: Boolean = true
+  cargando: Boolean = false
   actualizandoSaldos: Boolean = false
   constructor(
     private tarjetaService: TarjetaService,

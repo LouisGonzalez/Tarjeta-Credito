@@ -48,17 +48,17 @@
                             <hr class="solid">
                             <div class="row">
                                 <div class="col-6">
-                                    <label id="selectTipo" class=" col-form-label">Seleccione el tipo de cuenta</label>
-                                    <select class="form-select" >
+                                  <label id="selectTipo" class=" col-form-label">Seleccione el tipo de cuenta</label>
+                                    <select class="form-select" (change)="onChangeTipo($event.target.value)">
                                         <option value=""></option>
                                         <option *ngFor="let selectTipo of selectTipo"
-                                            value="{{selectTipo.tipo_cuenta_id}}"
-                                            (click)="onChangeTipo(selectTipo.nombre)">
+                                            [value]="selectTipo.tipo_cuenta_id"
+                                           >
                                             {{selectTipo.nombre}}</option>
                                     </select>
 
 
-<!--                                    <div id="selectTipo" class="form-select" required aria-label="select example">
+                             <!--    <div id="selectTipo" class="form-select" required aria-label="select example">
                                         
                                         <a *ngFor="let selectTipo of selectTipo"
                                             

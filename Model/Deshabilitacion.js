@@ -22,8 +22,8 @@ module.exports = function(sequelize, DataTypes) {
     fecha: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-//      defaultValue: Sequelize.Sequelize.fn('current_timestamp')
-      defaultValue: new Date()
+     defaultValue: Sequelize.NOW
+//      defaultValue: new Date()
     }
   }, {
     sequelize,
