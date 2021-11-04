@@ -5,7 +5,8 @@ const sequelize = new Sequelize(
     database.username,
     database.password, {
     host: database.host,
-    dialect: "postgres",
+//    dialect: "postgres",
+    dialect: "mysql",
     dialectOptions: {
         ssl: {
             required:true,
@@ -54,7 +55,7 @@ const transaccionModel = require('./Model/Transaccion');
 const Transaccion = transaccionModel(sequelize, Sequelize);
 
 //sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(
-    sequelize.sync({ force: true }).then(() => {
+    sequelize.sync({ force: false }).then(() => {
         console.log('Tablas sincronizadas')
     }).catch(err => console.log(err));
 
