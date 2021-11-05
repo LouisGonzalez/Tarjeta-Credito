@@ -3,17 +3,12 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongoose": "^6.0.11",
     "mysql2": "^2.3.2",
     "nodemailer": "^6.7.0",
     "nodemailer-express-handlebars": "^4.0.0",
-<<<<<<< HEAD
-    "nodemon": "^2.0.14",
-=======
     "pg": "^8.7.1",
-    "sequelize": "^6.8.0",
-=======
     "postgres": "^1.0.2",
->>>>>>> c4c15ef29b6c832cd08373402812df9789c77414
     "sequelize": "^6.7.0",
     "sequelize-auto": "^0.8.5"
   },
