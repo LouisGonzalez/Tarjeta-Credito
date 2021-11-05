@@ -35,4 +35,8 @@ var apiTransaccionRouter = require('./api/TransaccionRouter');
 //si una ruta viene con /transaccion el encargado de la ruta será apiTransaccionRouter, y se concatena a router
 router.use('/transaccion', apiTransaccionRouter);
 
+var apiComentarioRouter = require('./api/PortalPagosRouter');
+//si una ruta viene con /comentario el encargado de la ruta será apiComentarioRouter, y se concatena a router
+router.use('/portal', apiComentarioRouter);
+
 module.exports = router;
