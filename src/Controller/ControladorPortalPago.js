@@ -1,5 +1,5 @@
 
-var { Tarjeta } = require('../Db');
+var { Tarjeta, Usuario, Tipo_cuenta } = require('../Db');
 const { conversion_a_moneda } = require("./ControladorUtilidades");
 const { conversion_de_moneda } = require("./ControladorUtilidades");
 //todo se va a manejar en quetzales
