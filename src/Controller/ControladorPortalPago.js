@@ -1,5 +1,5 @@
 
-var { Tarjeta, Usuario, Tipo_cuenta } = require('../Db');
+var { Tarjeta, Usuario, Tipo_cuenta, Moneda } = require('../Db');
 const { conversion_a_moneda } = require("./ControladorUtilidades");
 const { conversion_de_moneda } = require("./ControladorUtilidades");
 const { Sequelize } = require('sequelize')
