@@ -6,7 +6,7 @@ const { Sequelize } = require('sequelize')
 //todo se va a manejar en quetzales
 
 const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
-    Tarjeta.findOne({
+    await Tarjeta.findOne({
         attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
@@ -25,7 +25,7 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
 };
 
 const solicitar_retirar_saldo = (req, res) => {
-    Tarjeta.findOne({
+    await Tarjeta.findOne({
         attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
@@ -50,7 +50,7 @@ const solicitar_retirar_saldo = (req, res) => {
 };
 
 const solicitar_depositar_saldo = (req, res) => {
-    Tarjeta.findOne({
+    await Tarjeta.findOne({
         attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
