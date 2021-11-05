@@ -5,7 +5,16 @@ const { conversion_de_moneda } = require("./ControladorUtilidades");
 //todo se va a manejar en quetzales
 
 const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
-    Tarjeta.findOne({where:{identificador: req.body.identificador}, raw: true}).then(tarjeta=>{
+    Tarjeta.findOne({
+        attributes: [models.sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        include: [
+            Usuario,
+            {
+                model: Tipo_cuenta,
+                include: [Moneda]
+            },
+        ],
+        where:{format: req.body.identificador}, raw: true}).then(tarjeta=>{
         if(tarjeta == null){
             res.status(401).json({information_message: 'No existe la cuenta solicitada.'});
         }else{
@@ -15,7 +24,16 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
 };
 
 const solicitar_retirar_saldo = (req, res) => {
-    Tarjeta.findOne({where: {identificador: req.body.identificador}}).then(tarjeta=>{
+    Tarjeta.findOne({
+        attributes: [models.sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        include: [
+            Usuario,
+            {
+                model: Tipo_cuenta,
+                include: [Moneda]
+            },
+        ],
+        where: {format: req.body.identificador}}).then(tarjeta=>{
         if(tarjeta == null){
             res.status(401).json({information_message: 'No existe la cuenta solicitada'});
         }else{
@@ -31,7 +49,16 @@ const solicitar_retirar_saldo = (req, res) => {
 };
 
 const solicitar_depositar_saldo = (req, res) => {
-    Tarjeta.findOne({where: {identificador: req.body.identificador}}).then(tarjeta=>{
+    Tarjeta.findOne({
+        attributes: [models.sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        include: [
+            Usuario,
+            {
+                model: Tipo_cuenta,
+                include: [Moneda]
+            },
+        ],
+        where: {format: req.body.identificador}}).then(tarjeta=>{
         if(tarjeta == null){
             res.status(401).json({information_message: 'No existe la cuenta solicitada'});
         }else{
