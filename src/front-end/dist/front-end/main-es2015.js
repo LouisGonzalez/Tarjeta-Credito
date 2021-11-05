@@ -3291,7 +3291,7 @@ class Usuario {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GLOBAL", function() { return GLOBAL; });
 var GLOBAL = {
-    url: 'http://localhost:3000/api/'
+    url: 'https://seminario-tarjeta-credito.herokuapp.com/api/'
 };
 
 
@@ -3569,7 +3569,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["platformBrowser"]().boot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Luis\Desktop\8V0 SEMESTRE\SEMINARIO\Tarjeta-Credito\Tarjeta-Credito\front-end\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\Luis\Desktop\8V0 SEMESTRE\SEMINARIO\Tarjeta-Credito\Tarjeta-Credito\src\front-end\src\main.ts */"./src/main.ts");
 
 
 /***/ })
