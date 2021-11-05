@@ -6,8 +6,7 @@ const { Sequelize } = require('sequelize')
 //todo se va a manejar en quetzales
 
 const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
-    try {
-    const tarjeta = await Tarjeta.findOne({
+    Tarjeta.findOne({
         attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
@@ -23,15 +22,10 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
             res.status(200).json(tarjeta);
         }
     });
-    } catch (error) {
-        //si nuestra consulta falla tira un mensaje de error
-        return res.status(500).send(error.message);
-    }
 };
 
 const solicitar_retirar_saldo = (req, res) => {
-    try {
-    const tarjeta = await Tarjeta.findOne({
+    Tarjeta.findOne({
         attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
@@ -53,15 +47,10 @@ const solicitar_retirar_saldo = (req, res) => {
             }
         }
     });
-    } catch (error) {
-        //si nuestra consulta falla tira un mensaje de error
-        return res.status(500).send(error.message);
-    }
 };
 
 const solicitar_depositar_saldo = (req, res) => {
-    try {
-    const tarjeta = await Tarjeta.findOne({
+    Tarjeta.findOne({
         attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
@@ -79,10 +68,6 @@ const solicitar_depositar_saldo = (req, res) => {
             res.status(200).json({information_message: 'Se ha realizado el deposito con éxito.'});
         }
     });
-    } catch (error) {
-        //si nuestra consulta falla tira un mensaje de error
-        return res.status(500).send(error.message);
-    }
 };
 
 module.exports = {
