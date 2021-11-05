@@ -2,11 +2,12 @@
 var { Tarjeta, Usuario, Tipo_cuenta } = require('../Db');
 const { conversion_a_moneda } = require("./ControladorUtilidades");
 const { conversion_de_moneda } = require("./ControladorUtilidades");
+const { Sequelize } = require('sequelize')
 //todo se va a manejar en quetzales
 
 const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
     Tarjeta.findOne({
-        attributes: [models.sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
@@ -25,7 +26,7 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
 
 const solicitar_retirar_saldo = (req, res) => {
     Tarjeta.findOne({
-        attributes: [models.sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
@@ -50,7 +51,7 @@ const solicitar_retirar_saldo = (req, res) => {
 
 const solicitar_depositar_saldo = (req, res) => {
     Tarjeta.findOne({
-        attributes: [models.sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
