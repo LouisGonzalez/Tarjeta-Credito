@@ -6520,7 +6520,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     });
 
     var GLOBAL = {
-      url: 'https://seminario-tarjeta-credito.herokuapp.com/api/'
+      url: 'http://localhost:3000/api/'
     };
     /***/
   },
@@ -7041,7 +7041,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! C:\Users\Luis\Desktop\8V0 SEMESTRE\SEMINARIO\Tarjeta-Credito\Tarjeta-Credito\src\front-end\src\main.ts */
+    /*! C:\Users\Luis\Desktop\8V0 SEMESTRE\SEMINARIO\Tarjeta-Credito\Tarjeta-Credito\front-end\src\main.ts */
     "./src/main.ts");
     /***/
   }
