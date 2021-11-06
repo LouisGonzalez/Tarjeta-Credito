@@ -16,7 +16,7 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
                 include: [Moneda]
             },
         ],
-        where:{Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"): req.body.identificador}, raw: true}).then(tarjeta=>{
+        where:{fffff: req.body.identificador}, raw: true}).then(tarjeta=>{
         if(tarjeta == null){
             res.status(401).json({information_message: 'No existe la cuenta solicitada.'});
         }else{
