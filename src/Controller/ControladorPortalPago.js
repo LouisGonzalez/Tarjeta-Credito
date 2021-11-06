@@ -7,7 +7,7 @@ const { Sequelize } = require('sequelize')
 
 const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'fffff'],
         include: [
             Usuario,
             {
@@ -16,7 +16,7 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
                 include: [Moneda]
             },
         ],
-        where:{format: req.body.identificador}, raw: true}).then(tarjeta=>{
+        where:{fffff: req.body.identificador}, raw: true}).then(tarjeta=>{
         if(tarjeta == null){
             res.status(401).json({information_message: 'No existe la cuenta solicitada.'});
         }else{
@@ -27,7 +27,7 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
 
 const solicitar_retirar_saldo = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'fffff'],
         include: [
             Usuario,
             {
@@ -36,7 +36,7 @@ const solicitar_retirar_saldo = (req, res) => {
                 include: [Moneda]
             },
         ],
-        where: {format: req.body.identificador}}).then(tarjeta=>{
+        where: {fffff: req.body.identificador}}).then(tarjeta=>{
         if(tarjeta == null){
             res.status(401).json({information_message: 'No existe la cuenta solicitada'});
         }else{
@@ -53,7 +53,7 @@ const solicitar_retirar_saldo = (req, res) => {
 
 const solicitar_depositar_saldo = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'fffff'],
         include: [
             Usuario,
             {
@@ -62,7 +62,7 @@ const solicitar_depositar_saldo = (req, res) => {
                 include: [Moneda]
             },
         ],
-        where: {format: req.body.identificador}}).then(tarjeta=>{
+        where: {fffff: req.body.identificador}}).then(tarjeta=>{
         if(tarjeta == null){
             res.status(401).json({information_message: 'No existe la cuenta solicitada'});
         }else{
