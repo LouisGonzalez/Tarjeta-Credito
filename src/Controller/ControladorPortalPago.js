@@ -7,7 +7,7 @@ const { Sequelize } = require('sequelize')
 
 const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuenta.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
@@ -26,7 +26,7 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
 
 const solicitar_retirar_saldo = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuenta.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
@@ -51,7 +51,7 @@ const solicitar_retirar_saldo = (req, res) => {
 
 const solicitar_depositar_saldo = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuenta.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
