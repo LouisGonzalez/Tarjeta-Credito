@@ -5776,7 +5776,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function ngOnInit() {
           var _this24 = this;
 
-          this._tarjetaService.buscarTarjetas(2).subscribe(function (response) {
+          //localStorage.getItem("usuario");
+          var usuario = JSON.parse(localStorage.getItem('usuario'));
+
+          this._tarjetaService.buscarTarjetas(usuario.usuario_id).subscribe(function (response) {
             console.log(response);
             _this24.dataSource = response.tarjeta;
           });

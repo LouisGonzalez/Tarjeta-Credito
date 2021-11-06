@@ -2921,7 +2921,9 @@ class UserHomeComponent {
         this._tarjetaService = _tarjetaService;
     }
     ngOnInit() {
-        this._tarjetaService.buscarTarjetas(2).subscribe(response => {
+        //localStorage.getItem("usuario");
+        let usuario = JSON.parse(localStorage.getItem('usuario'));
+        this._tarjetaService.buscarTarjetas(usuario.usuario_id).subscribe(response => {
             console.log(response);
             this.dataSource = response.tarjeta;
         });
