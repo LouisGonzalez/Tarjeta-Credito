@@ -7,12 +7,12 @@ const { Sequelize } = require('sequelize')
 
 const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || tipo_cuenta.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
                 model: Tipo_cuenta,
-                as: "tipo_cuenta",
+                as: "Tipo_cuentum",
                 include: [Moneda]
             },
         ],
@@ -27,12 +27,12 @@ const vincular_tarjeta_credito_portal_de_pagos = (req, res) => {
 
 const solicitar_retirar_saldo = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || tipo_cuenta.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
                 model: Tipo_cuenta,
-                as: "tipo_cuenta",
+                as: "Tipo_cuentum",
                 include: [Moneda]
             },
         ],
@@ -53,12 +53,12 @@ const solicitar_retirar_saldo = (req, res) => {
 
 const solicitar_depositar_saldo = (req, res) => {
     Tarjeta.findOne({
-        attributes: [Sequelize.literal("username || '.' || tipo_cuenta.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
+        attributes: [Sequelize.literal("username || '.' || Tipo_cuentum.nombre || '@' || numero_tarjeta || '.com'"), 'format'],
         include: [
             Usuario,
             {
                 model: Tipo_cuenta,
-                as: "tipo_cuenta",
+                as: "Tipo_cuentum",
                 include: [Moneda]
             },
         ],
